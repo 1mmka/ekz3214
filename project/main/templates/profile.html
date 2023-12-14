@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user profile</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .post {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .post img {
+            max-width: 90%;
+            border-radius: 5px;
+            margin-top: 10px;
+            height: 50%;
+        }
+
+        .post-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            margin: 0;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-button,
+        .delete-button,
+        .back-button,
+        .create-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+        }
+
+        .back-button {
+            background-color: #28a745;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <a href="{% url 'home-page' %}" class="back-button">Вернуться назад</a>
+        <a href="{% url 'create-post' %}" class="create-button">Создать пост</a>
+        {% for post in posts %}
+        <div class="post">
+            <div class="post-details">
+                <h2>{{ post.title }}</h2>
+                <div class="buttons">
+                    <a href="{% url 'edit-post' post.pk %}" style="text-decoration: none;">
+                        <button class="edit-button">Редактировать</button>
+                    </a>
+                    <a href="{% url 'delete-post' post.pk %}" style="text-decoration: none; color:#fff;">
+                        <button class="delete-button">Удалить</button>
+                    </a>
+                </div>
+            </div>
+            <img src="{{ post.image.url }}" alt="Post Image">
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>
